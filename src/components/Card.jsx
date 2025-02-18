@@ -16,7 +16,7 @@ const Card = ({ data }) => {
                     className="h-52 w-full rounded-t-md object-cover"
                 />
             </div>
-            <div className="flex  absolute justify-end  w-full">
+            <div className="flex absolute justify-end w-full">
                 {" "}
                 <div
                     className={` rounded-md  w-6 h-6 border-2 flex justify-center items-center bg-white ${data?.filter?.filter === ("Vegetarian" || "VEGETARIAN")
