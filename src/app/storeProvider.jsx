@@ -7,6 +7,7 @@ export default function StoreProvider({ children }) {
 
     if (!storeRef.current) {
         storeRef.current = makeStore()
+        // storeRef.current.dispatch(initializeCount(count))
     }
 
     return <Provider store={storeRef.current}>{children}</Provider>

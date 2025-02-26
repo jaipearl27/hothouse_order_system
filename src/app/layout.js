@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import Cart from "@/components/Cart";
+import SocketClient from "./socketClient";
 
 
 const geistSans = Geist({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
           {children}
           <Cart />
         </div>
+        <SocketClient />
       </body>
     </html>
   );
