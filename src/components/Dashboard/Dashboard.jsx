@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import Pizza from "./Pizza"
 import Sides from "./Sides"
 import Drinks from "./Drinks"
+import Deals from "./Deals"
 
 
 
@@ -82,12 +83,17 @@ const Dashboard = () => {
 
                         <Tabs defaultValue="pizza" className="w-full border">
                             <TabsList className={"w-full"}>
+                                <TabsTrigger value="deals" className="w-full">DEALS</TabsTrigger>
                                 <TabsTrigger value="pizza" className="w-full">PIZZA</TabsTrigger>
                                 <TabsTrigger value="sides" className="w-full">SIDES</TabsTrigger>
                                 <TabsTrigger value="drinks" className="w-full">DRINKS</TabsTrigger>
                                 <TabsTrigger value="desserts" className="w-full">DESSERTS</TabsTrigger>
                                 <TabsTrigger value="dips" className="w-full">DIPS</TabsTrigger>
+
                             </TabsList>
+                            <TabsContent value="deals">
+                                <Deals />
+                            </TabsContent>
                             <TabsContent value="pizza">
                                 <Pizza data={pizzas} />
                             </TabsContent>

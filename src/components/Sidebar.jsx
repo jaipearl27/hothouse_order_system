@@ -2,48 +2,53 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import DescriptionIcon from '@mui/icons-material/Description';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import FlatwareIcon from '@mui/icons-material/Flatware';
 
 const activeMenu = 'pos';
 
 const Sidebar = () => {
     return (
         <div className="flex flex-row w-auto flex-shrink-0 pl-4 pr-2 py-4 ">
-            <div className="flex flex-col items-center py-4 flex-shrink-0 w-20 bg-red-700 rounded-3xl shadow-[0_0_5px_5px#f1f1f1]">
-                <Link href="#"
+            <div className="flex flex-col items-center py-4 flex-shrink-0 w-[70px] bg-red-700 rounded-3xl shadow-[0_0_5px_5px#f1f1f1]">
+                <span
                     className="flex items-center justify-center h-12 w-12 bg-red-50 text-white rounded-full">
                     <Image src="/HOTPIZZALOGO.webp" alt="HOTPIZZALOGO" width={100} height={100} className="rounded-full bg-cover" />
-                </Link>
+                </span>
                 <ul className="flex flex-col space-y-2 mt-12">
                     <li>
                         <Link href="#"
-                            className="flex items-center">
+                            className="flex items-center"
+                            title="Dashboard"
+                        >
                             <span
                                 className={`flex items-center justify-center h-12 w-12 rounded-2xl ${activeMenu === 'pos' ? 'bg-red-600 shadow-lg text-white' : 'hover:bg-red-900 text-white'
                                     }`}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                </svg>
+                                <FlatwareIcon />
                             </span>
                         </Link>
                     </li>
+
                     <li>
                         <Link href="#"
-                            className="flex items-center">
+                            className="flex items-center"
+                            title="Active orders"
+                        >
                             <span className="flex items-center justify-center text-white hover:bg-red-900 h-12 w-12 rounded-2xl">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                                </svg>
+                                <LocalFireDepartmentIcon />
                             </span>
                         </Link>
                     </li>
+
                     <li>
                         <Link href="#"
-                            className="flex items-center">
+                            className="flex items-center"
+                            title="Reports"
+                        >
                             <span className="flex items-center justify-center text-white hover:bg-red-900 h-12 w-12 rounded-2xl">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                </svg>
+                                <DescriptionIcon />
                             </span>
                         </Link>
                     </li>

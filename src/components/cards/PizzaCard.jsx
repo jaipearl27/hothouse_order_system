@@ -4,6 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+
+
 
 const PizzaCard = ({ data, idx }) => {
 
@@ -57,7 +60,7 @@ const PizzaCard = ({ data, idx }) => {
                     alt={data?.pizzaName}
                     width={500}
                     height={500}
-                    className="h-52 w-full rounded-t-md object-cover"
+                    className="h-20 w-full rounded-t-md object-cover"
                 />
             </div>
             <div className="flex absolute justify-end w-full">
@@ -67,21 +70,26 @@ const PizzaCard = ({ data, idx }) => {
                         ? "border-green-600" : "border-red-800"
                         }`}
                 >
-                    {/* <RiCheckboxBlankCircleFill
+                    <span
                         size={20}
                         className={`${data?.filter?.filter === ("Vegetarian" || "VEGETARIAN")
-                            ? "text-green-600 "
-                            : "text-red-800"
-                            }`}
-                    /> */}
+                            ? "bg-green-600 "
+                            : "bg-red-800"
+                            } h-2 w-2 rounded-full`}
+                    ></span>
                 </div>
             </div>
             <div className=" h-full px-2">
                 <div className="mt-3">
-                    <h3 className="text-xl font-semibold mb-1 ">{data?.pizzaName} <div className="text-red-800">(20% Off on Collection)</div></h3>
-                    <p className="text-sm font-semibold text-gray-500 mb-4 whitespace-wrap overflow-hidden ">
-                        {/* {combineNames()} */}
-                    </p>
+                    <h3 className="text-3xl text-center font-semibold mb-1 ">
+                        {data?.pizzaName}
+                        {/* <div className="text-red-800">
+                            (20% Off on Collection)
+                        </div> */}
+                    </h3>
+                    {/* <p className="text-sm font-semibold text-gray-500 mb-4 whitespace-wrap overflow-hidden "> */}
+                    {/* {combineNames()} */}
+                    {/* </p> */}
                 </div>
             </div>
 
@@ -139,9 +147,9 @@ const PizzaCard = ({ data, idx }) => {
                         //     );
 
                         // }}
-                        href={`/menu/product/customisePizza`}
+                        href={`#`}
                     >
-                        {/* <TbEdit size={30} className="text-slate-800 hover:text-red-800" /> */}
+                        <BorderColorIcon fontSize='large' className="text-2xl text-slate-800 hover:text-red-800" />
                     </Link>
                     <div className="bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center w-full">
                         <button
@@ -160,7 +168,7 @@ const PizzaCard = ({ data, idx }) => {
                             //         })
                             //       );
                             //   }}
-                            className="text-center rounded-lg w-full p-2 text-white"
+                            className="text-center rounded-lg w-full p-2 font-bold text-2xl text-white"
                             type="button"
                         >
                             Add
