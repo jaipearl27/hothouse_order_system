@@ -2,51 +2,55 @@
 
 import Image from 'next/image'
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/lib/features/cart/cartSlice';
 
 
 
 const PizzaCard = ({ data, idx }) => {
 
 
-    // const selectedSizeId =
-    //     Array.isArray(data?.priceSection) && data?.priceSection[0]?.size?._id;
-    // const [selectedData, setSelectedData] = useState(selectedSizeId);
-    // const [uniquePizzaId, setUniquePizzaId] = useState(
-    //     selectedSizeId + data?._id
-    // );
+    const dispatch = useDispatch()
 
-    // const selectedLabelName =
-    //     Array.isArray(data?.priceSection) &&
-    //     `${data?.priceSection[0]?.size?.name}-${data?.priceSection[0]?.price}`;
-    // const [selectedLabel, setSelectedLabel] = useState(selectedLabelName);
+    const selectedSizeId =
+        Array.isArray(data?.priceSection) && data?.priceSection[0]?.size?._id;
+    const [selectedData, setSelectedData] = useState(selectedSizeId);
+    const [uniquePizzaId, setUniquePizzaId] = useState(
+        selectedSizeId + data?._id
+    );
 
-    // const handleChange = (event) => {
-    //     const selectedOption = event.target.options[event.target.selectedIndex];
-    //     const value = event.target.value;
-    //     const label = selectedOption.getAttribute("data-label");
-    //     console.log(event.target.value);
-    //     setUniquePizzaId(event.target.value + data?._id);
+    const selectedLabelName =
+        Array.isArray(data?.priceSection) &&
+        `${data?.priceSection[0]?.size?.name}-${data?.priceSection[0]?.price}`;
+    const [selectedLabel, setSelectedLabel] = useState(selectedLabelName);
 
-    //     setSelectedData(value);
-    //     setSelectedLabel(label);
-    // };
+    const handleChange = (event) => {
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        const value = event.target.value;
+        const label = selectedOption.getAttribute("data-label");
+        console.log(event.target.value);
+        setUniquePizzaId(event.target.value + data?._id);
 
-    // const combineNames = () => {
-    //     const items = [
-    //         data?.meatToppingsName,
-    //         data?.vegetarianToppingsName,
-    //         data?.cheeseName,
-    //         data?.sauceName,
-    //     ]
-    //         .filter((item) => item && item.length > 0)
-    //         .flat();
+        setSelectedData(value);
+        setSelectedLabel(label);
+    };
 
-    //     // Join the items with ", " but replace regular spaces with non-breaking spaces
-    //     return items.map((item) => item.replace(/ /g, "\u00A0")).join(", ");
-    // };
+    const combineNames = () => {
+        const items = [
+            data?.meatToppingsName,
+            data?.vegetarianToppingsName,
+            data?.cheeseName,
+            data?.sauceName,
+        ]
+            .filter((item) => item && item.length > 0)
+            .flat();
+
+        // Join the items with ", " but replace regular spaces with non-breaking spaces
+        return items.map((item) => item.replace(/ /g, "\u00A0")).join(", ");
+    };
 
 
     return (
@@ -153,21 +157,21 @@ const PizzaCard = ({ data, idx }) => {
                     </Link>
                     <div className="bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center w-full">
                         <button
-                            //   onClick={() => {
-                            //     selectedData &&
-                            //       dispatch(
-                            //         addToCart({
-                            //           name: data?.pizzaName,
-                            //           img: data?.banner,
-                            //           size: selectedLabel,
-                            //           id: uniquePizzaId,
-                            //           quantity: 1,
-                            //           price: Number(selectedLabel.split("-")[1]),
-                            //           totalSum: Number(selectedLabel.split("-")[1]),
-                            //           discount: (Number(selectedLabel.split("-")[1]) * 0.2).toFixed(2),
-                            //         })
-                            //       );
-                            //   }}
+                            onClick={() => {
+                                selectedData &&
+                                    dispatch(
+                                        addToCart({
+                                            name: data?.pizzaName,
+                                            img: data?.banner,
+                                            size: selectedLabel,
+                                            id: uniquePizzaId,
+                                            quantity: 1,
+                                            price: Number(selectedLabel.split("-")[1]),
+                                            totalSum: Number(selectedLabel.split("-")[1]),
+                                            discount: (Number(selectedLabel.split("-")[1]) * 0.2).toFixed(2),
+                                        })
+                                    );
+                            }}
                             className="text-center rounded-lg w-full p-2 font-bold text-2xl text-white"
                             type="button"
                         >
