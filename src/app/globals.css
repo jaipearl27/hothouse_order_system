@@ -55,8 +55,15 @@
 
     --chart-5: 27 87% 67%;
 
-    --radius: 0.5rem
+    --radius: 0.5rem;
+
+    --sb-track-color: #dddddd;
+    --sb-thumb-color: #c31212;
+    --sb-size: 9px;
+
+
   }
+
   .dark {
 
     --background: 0 0% 3.9%;
@@ -107,6 +114,8 @@
 
     --chart-5: 340 75% 55%
   }
+
+
 }
 
 
@@ -115,7 +124,32 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+
+/* custom scrollbar */
+
+::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 5px;
+  border: 1px solid #c10707;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }

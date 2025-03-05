@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-const { createSlice, current } = require("@reduxjs/toolkit");
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const toppingsPriceTrackerSet = new Set();
 

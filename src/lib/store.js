@@ -1,36 +1,56 @@
 
 import cartReducer from "./features/cart/cartSlice"
 import authReducer from "./features/auth/authSlice"
+import productsReducer from "./features/products/productsSlice"
+
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage"
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
+
+
+const isServer = typeof window === "undefined"; // ✅ Check for server environment
+
+let storage = null;
+if (!isServer) {
+    storage = require("redux-persist/lib/storage").default; // ✅ Dynamically import storage
+}
+
+
 
 const persistConfig = {
     key: "persist",
     blacklist: ['cart.createYourOwnPizzaMAX_TOPPINGS'],
-    storage,
+    storage: storage || undefined,
 }
 
 
 const rootReducer = combineReducers({
     cart: cartReducer,
     auth: authReducer,
+    products: productsReducer,
 });
 
+
+const persistedReducer = isServer
+    ? rootReducer // ✅ Use non-persisted reducer on server
+    : persistReducer(persistConfig, rootReducer);
+
+
 const makeConfiguredStore = () => {
-    configureStore({
-        reducer: rootReducer
+    return configureStore({
+        reducer: rootReducer,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                seriablizableCheck: false
+            })
     })
 }
 
 export const makeStore = () => {
-    const isServer = typeof window === "undefined";
     if (isServer) {
         return makeConfiguredStore()
     }
 
-    const persistedReducer = persistReducer(persistConfig, rootReducer)
     let store = configureStore({
         reducer: persistedReducer,
         middleware: (getDefaultMiddleware) =>
@@ -38,6 +58,10 @@ export const makeStore = () => {
                 serializableCheck: false,
             }),
     })
-    store.__persistor = persistStore(store);
+
+    if (!isServer) {
+        store.__persistor = persistStore(store); // ✅ Persistor only runs on client
+    }
+
     return store;
 }

@@ -1,60 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import axios from "axios"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-// import Products from "./Pizza"
 import Pizza from "./Pizza"
 import Sides from "./Sides"
 import Drinks from "./Drinks"
 import Deals from "./Deals"
 
 
-
-
 const Dashboard = () => {
-
-    const [pizzas, setPizzas] = useState([])
-    const [sides, setSides] = useState([])
-    const [drinks, setDrinks] = useState([])
-    const [dips, setDips] = useState([])
-    const [desserts, setDesserts] = useState([])
-
-
-
-    useEffect(() => {
-        const fetchPizzas = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_V1}/pizza`)
-            setPizzas(response.data.data)
-        }
-
-        const fetchSides = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_V1}/sides`)
-            setSides(response.data.data)
-        }
-
-
-        const fetchDrinks = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_V1}/drinks`)
-            setDrinks(response.data.data)
-        }
-
-        const fetchDips = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_V1}/dips`)
-            setDips(response.data.data)
-        }
-
-        const fetchDesserts = async () => {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL_V1}/dessert`)
-            setDesserts(response.data.data)
-        }
-
-        fetchPizzas()
-        fetchSides()
-        fetchDrinks()
-        fetchDips()
-        fetchDesserts()
-    }, [])
 
     return (
 
@@ -76,12 +29,9 @@ const Dashboard = () => {
                 <div className="h-full overflow-hidden mt-4 shadow-[0_0_5px_5px#f1f1f1] rounded-3xl">
 
 
-                    <div className="h-full overflow-y-auto px-2">
+                    <div className="h-full overflow-y-auto p-2">
 
-
-
-
-                        <Tabs defaultValue="pizza" className="w-full border">
+                        <Tabs defaultValue="pizza" className="w-full">
                             <TabsList className={"w-full"}>
                                 <TabsTrigger value="deals" className="w-full">DEALS</TabsTrigger>
                                 <TabsTrigger value="pizza" className="w-full">PIZZA</TabsTrigger>
@@ -95,24 +45,18 @@ const Dashboard = () => {
                                 <Deals />
                             </TabsContent>
                             <TabsContent value="pizza">
-                                <Pizza data={pizzas} />
+                                <Pizza />
                             </TabsContent>
                             <TabsContent value="sides">
-                                <Sides data={sides} />
+                                <Sides />
                             </TabsContent>
                             <TabsContent value="drinks">
-                                <Drinks data={drinks} />
+                                <Drinks />
                             </TabsContent>
                             <TabsContent value="sides">
-                                <Sides data={sides} />
+                                <Sides />
                             </TabsContent>
                         </Tabs>
-
-
-
-
-
-
 
                     </div>
                 </div>

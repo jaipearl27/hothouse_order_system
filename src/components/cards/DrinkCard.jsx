@@ -62,17 +62,17 @@ export default function DrinksCard({ data }) {
 
     return (
 
-        <div className="bg-white shadow-md rounded-md max-w-[15rem] w-full newshadow flex flex-col justify-between" key={data?._id}>
-            <Image
+        <div className="flex relative flex-col justify-between bg-white shadow-[0_0_2px#000] rounded-md max-w-[17rem]  2xl:max-w-xs w-full mb-10 hover:shadow-[0_0_4px#000000]" key={data?._id}>
+            {/* <Image
                 src={data.banner}
                 alt={data.drink}
-                width={100}
-                height={100}
+                width={300}
+                height={300}
                 className="rounded-t-md object-cover w-full h-44"
-            />
+            /> */}
 
-            <h2 className="text-xl font-semibold mb-2 p-3">{data.drink}</h2>
-            <div>
+            <h2 className="text-2xl xl:text-3xl text-center font-semibold mb-1">{data.drink}</h2>
+            <div className="space-y-4 mt-2">
                 {data.price?.length === 1 ? (
                     <div className="w-full p-2 border border-gray-300 rounded-lg bg-gray-200 text-gray-500">
                         {`${data.price[0].drinkType}  £ ${data.price[0].price}`}
@@ -123,22 +123,6 @@ export default function DrinksCard({ data }) {
                         </SelectContent>
                     </Select>
 
-
-
-
-                    // <Select
-                    //     className="w-full"
-                    //     placeholder={`${data.price[0].drinkType} £${data.price[0].price}`}
-                    //     // options={data.price.map((drinkItem) => ({
-                    //     //     label: `${drinkItem.drinkType} £${drinkItem.price}`,
-                    //     //     name: data.drink,
-                    //     //     price: drinkItem?.price,
-                    //     //     size: drinkItem.drinkType,
-                    //     //     value: drinkItem?._id,
-                    //     //     img: data?.banner,
-                    //     // }))}
-                    //     onChange={(option) => setSelectedOption(option)}
-                    // />
                 )}
 
                 <div

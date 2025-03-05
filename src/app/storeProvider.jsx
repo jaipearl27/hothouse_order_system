@@ -1,17 +1,25 @@
 "use client"
 
-import { useRef } from "react";
+// import { useRef } from "react";
 import { Provider } from "react-redux"
 import { makeStore } from "@/lib/store"
+import { PersistGate } from "redux-persist/integration/react";
+import { useState } from "react";
+import { Toaster } from "sonner";
 
 export default function StoreProvider({ children }) {
-    const storeRef = useRef(null)
 
-    if (!storeRef.current) {
-        storeRef.current = makeStore()
-        // storeRef.current.dispatch(initializeCount(count))
-    }
+    const [store] = useState(() => makeStore())
 
-    return <Provider store={storeRef.current}>{children}</Provider>
+    if (!store) return null
+
+    return (
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={store.__persistor} >
+                <Toaster />
+                {children}
+            </PersistGate>
+        </Provider>
+    )
 
 }

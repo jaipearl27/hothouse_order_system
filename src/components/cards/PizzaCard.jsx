@@ -55,19 +55,19 @@ const PizzaCard = ({ data, idx }) => {
 
     return (
         <div
-            className="flex relative flex-col justify-between bg-white rounded-md max-w-[17rem]  2xl:max-w-xs w-full newshadow mb-10"
+            className="flex relative flex-col justify-between bg-white shadow-[0_0_2px#000] rounded-md max-w-[17rem]  2xl:max-w-xs w-full mb-10 hover:shadow-[0_0_4px#000000] "
             key={data?._id}
         >
             <div className="">
-                <Image
+                {/* <Image
                     src={data?.banner}
                     alt={data?.pizzaName}
                     width={500}
                     height={500}
                     className="h-20 w-full rounded-t-md object-cover"
-                />
+                /> */}
             </div>
-            <div className="flex absolute justify-end w-full">
+            <div className="flex absolute justify-end w-full p-1">
                 {" "}
                 <div
                     className={` rounded-md  w-6 h-6 border-2 flex justify-center items-center bg-white ${data?.filter?.filter === ("Vegetarian" || "VEGETARIAN")
@@ -84,8 +84,8 @@ const PizzaCard = ({ data, idx }) => {
                 </div>
             </div>
             <div className=" h-full px-2">
-                <div className="mt-3">
-                    <h3 className="text-3xl text-center font-semibold mb-1 ">
+                <div className="mt-6">
+                    <h3 className="text-2xl xl:text-3xl text-center font-semibold mb-1 ">
                         {data?.pizzaName}
                         {/* <div className="text-red-800">
                             (20% Off on Collection)
@@ -97,7 +97,7 @@ const PizzaCard = ({ data, idx }) => {
                 </div>
             </div>
 
-            <div className="mt-3 mb-1 ">
+            <div className="my-2">
                 <div className="">
 
 

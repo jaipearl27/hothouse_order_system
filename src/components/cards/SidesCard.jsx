@@ -11,16 +11,16 @@ const SidesCard = ({ data }) => {
     const [isAddClicked, setIsAddClicked] = useState(false);
     return (
         <div
-            className=" bg-white shadow-md rounded-md max-w-[15rem] 2xl:max-w-xs w-full newshadow mb-10 flex flex-col justify-between"
+            className="flex relative flex-col justify-between bg-white shadow-[0_0_2px#000] rounded-md max-w-[17rem]  2xl:max-w-xs w-full mb-10 hover:shadow-[0_0_4px#000000]"
             key={data?._id}
         >
-            <img
+            {/* <img
                 src={data?.banner}
                 alt={data?.sideName}
                 className="rounded-t-md w-full h-44 object-cover"
-            />
-            <h3 className="text-lg font-semibold text-gray-800 px-2 py-3">{data?.sideName}</h3>
-            <div>
+            /> */}
+            <h3 className="text-2xl xl:text-3xl text-center font-semibold mb-1">{data?.sideName}</h3>
+            <div className="my-2 space-y-2">
 
 
                 <Select
@@ -51,18 +51,6 @@ const SidesCard = ({ data }) => {
                     </SelectContent>
                 </Select>
 
-
-                {/* <select
-                    onChange={(Event) => {
-                        //   console.log(Event.target.value);
-                        setSelectedData(Event.target.value);
-                    }}
-                    name="pizzas"
-                    id="pizzas"
-                    className="border p-2 w-full rounded-t-md text-gray-500"
-                >
-                    <option>£ {data?.price}</option>
-                </select> */}
                 <div className="bg-green-600 hover:bg-green-700 flex gap-2  justify-center w-full">
                     <button
                         onClick={() => {
@@ -89,7 +77,7 @@ const SidesCard = ({ data }) => {
                 </div>
             </div>
 
-        </div>
+        </div >
 
 
 
