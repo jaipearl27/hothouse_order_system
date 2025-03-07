@@ -4,10 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/lib/features/cart/cartSlice";
 
 
 export default function DrinksCard({ data }) {
-    // console.log(data)
+
+    const dispatch = useDispatch();
+
     const [selectedOption, setSelectedOption] = useState(null);
     useEffect(() => {
         setSelectedOption({
@@ -26,39 +30,38 @@ export default function DrinksCard({ data }) {
             size: data?.price[0].drinkType,
             value: data?.price[0]?._id,
             img: data?.banner,
-        })
+        }, 'selectedOption')
 
 
     }, []);
 
-    // const dispatch = useDispatch();
 
-    // function handleAddDrinkToCart(data) {
-    //     if (data.id) {
-    //         dispatch(
-    //             addToCart({
-    //                 id: data?.id + selectedOption?.value,
-    //                 name: selectedOption?.name,
-    //                 img: selectedOption?.img,
-    //                 size: `${selectedOption?.size}-${selectedOption.price}`,
-    //                 quantity: 1,
-    //                 price: Number(selectedOption.price * 1).toFixed(2),
-    //                 totalSum: Number(selectedOption.price * 1).toFixed(2),
-    //             })
-    //         );
+    function handleAddDrinkToCart(data) {
+        if (data.id) {
+            dispatch(
+                addToCart({
+                    id: data?.id + selectedOption?.value,
+                    name: selectedOption?.name,
+                    img: selectedOption?.img,
+                    size: `${selectedOption?.size}-${selectedOption.price}`,
+                    quantity: 1,
+                    price: Number(selectedOption.price * 1).toFixed(2),
+                    totalSum: Number(selectedOption.price * 1).toFixed(2),
+                })
+            );
 
-    //         console.log({
-    //             id: data?.id + selectedOption?.value,
-    //             name: selectedOption?.name,
-    //             img: selectedOption?.img,
-    //             size: `${selectedOption?.size}"-${selectedOption.price}`,
-    //             quantity: 1,
-    //             price: Number(selectedOption.price * 1).toFixed(2),
-    //             totalSum: Number(selectedOption.price * 1).toFixed(2),
-    //         });
-    //         console.log("selected ", selectedOption);
-    //     }
-    // }
+            console.log({
+                id: data?.id + selectedOption?.value,
+                name: selectedOption?.name,
+                img: selectedOption?.img,
+                size: `${selectedOption?.size}"-${selectedOption.price}`,
+                quantity: 1,
+                price: Number(selectedOption.price * 1).toFixed(2),
+                totalSum: Number(selectedOption.price * 1).toFixed(2),
+            });
+            console.log("selected ", selectedOption);
+        }
+    }
 
     return (
 
@@ -83,7 +86,7 @@ export default function DrinksCard({ data }) {
                     <Select
                         onValueChange={(value) => {
                             console.log(value);
-                            // setSelectedData(Event.target.value);
+                            setSelectedData(value);
                         }}
                         name="drinks"
                         id="drinks"
