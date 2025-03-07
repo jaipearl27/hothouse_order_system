@@ -10,14 +10,15 @@ import { addToCart } from '@/lib/features/cart/cartSlice';
 
 
 
-const PizzaCard = ({ data, idx }) => {
+const PizzaCard = ({ data }) => {
 
 
     const dispatch = useDispatch()
 
-    const selectedSizeId =
-        Array.isArray(data?.priceSection) && data?.priceSection[0]?.size?._id;
+    const selectedSizeId = Array.isArray(data?.priceSection) && data?.priceSection[0]?.size?._id;
+
     const [selectedData, setSelectedData] = useState(selectedSizeId);
+
     const [uniquePizzaId, setUniquePizzaId] = useState(
         selectedSizeId + data?._id
     );
@@ -25,32 +26,30 @@ const PizzaCard = ({ data, idx }) => {
     const selectedLabelName =
         Array.isArray(data?.priceSection) &&
         `${data?.priceSection[0]?.size?.name}-${data?.priceSection[0]?.price}`;
+
     const [selectedLabel, setSelectedLabel] = useState(selectedLabelName);
 
-    const handleChange = (event) => {
-        const selectedOption = event.target.options[event.target.selectedIndex];
-        const value = event.target.value;
-        const label = selectedOption.getAttribute("data-label");
-        console.log(event.target.value);
-        setUniquePizzaId(event.target.value + data?._id);
+    const handleChange = (value) => {
+        const selectedItem = data?.priceSection.find((i) => i?.size?._id === value)
 
+        setUniquePizzaId(value + data?._id);
         setSelectedData(value);
-        setSelectedLabel(label);
+        setSelectedLabel(`${selectedItem?.size?.name}-${selectedItem?.price}`)
     };
 
-    const combineNames = () => {
-        const items = [
-            data?.meatToppingsName,
-            data?.vegetarianToppingsName,
-            data?.cheeseName,
-            data?.sauceName,
-        ]
-            .filter((item) => item && item.length > 0)
-            .flat();
+    // const combineNames = () => {
+    //     const items = [
+    //         data?.meatToppingsName,
+    //         data?.vegetarianToppingsName,
+    //         data?.cheeseName,
+    //         data?.sauceName,
+    //     ]
+    //         .filter((item) => item && item.length > 0)
+    //         .flat();
 
-        // Join the items with ", " but replace regular spaces with non-breaking spaces
-        return items.map((item) => item.replace(/ /g, "\u00A0")).join(", ");
-    };
+    //     // Join the items with ", " but replace regular spaces with non-breaking spaces
+    //     return items.map((item) => item.replace(/ /g, "\u00A0")).join(", ");
+    // };
 
 
     return (
@@ -99,12 +98,9 @@ const PizzaCard = ({ data, idx }) => {
 
             <div className="my-2">
                 <div className="">
-
-
                     <Select
                         onValueChange={(value) => {
-                            console.log(value);
-                            // setSelectedData(Event.target.value);
+                            handleChange(value)
                         }}
                         name="pizzas"
                         id="pizzas"
