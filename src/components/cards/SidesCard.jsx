@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { addToCart } from "@/app/lib/features/cartSlice/cartSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/lib/features/cart/cartSlice";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import SliderValueLabel from "@mui/material/Slider/SliderValueLabel";
 
 
 const SidesCard = ({ data }) => {
     // =-----------------------hooks--------------------------------
-    //   const dispatch = useDispatch();
+      const dispatch = useDispatch();
     const [selectedData, setSelectedData] = useState(null);
-    const [isAddClicked, setIsAddClicked] = useState(false);
+    // const [isAddClicked, setIsAddClicked] = useState(false);
     return (
         <div
             className="flex relative flex-col justify-between bg-white shadow-[0_0_2px#000] rounded-md max-w-[17rem]  2xl:max-w-xs w-full mb-10 hover:shadow-[0_0_4px#000000]"
@@ -26,7 +27,7 @@ const SidesCard = ({ data }) => {
                 <Select
                     onValueChange={(value) => {
                         console.log(value);
-                        // setSelectedData(Event.target.value);
+                        setSelectedData(SliderValueLabel);
                     }}
                     name="sides"
                     id="sides"
@@ -54,17 +55,17 @@ const SidesCard = ({ data }) => {
                 <div className="bg-green-600 hover:bg-green-700 flex gap-2  justify-center w-full">
                     <button
                         onClick={() => {
-                            // dispatch(
-                            //   addToCart({
-                            //     name: data?.sideName,
-                            //     img: data?.banner,
-                            //     size: selectedData || data?.price,
-                            //     id: data?._id,
-                            //     quantity: 1,
-                            //     price: Number(selectedData || data?.price),
-                            //     totalSum: Number(selectedData || data?.price)
-                            //   })
-                            // );
+                            dispatch(
+                              addToCart({
+                                name: data?.sideName,
+                                img: data?.banner,
+                                size: selectedData || data?.price,
+                                id: data?._id,
+                                quantity: 1,
+                                price: Number(selectedData || data?.price),
+                                totalSum: Number(selectedData || data?.price)
+                              })
+                            );
                         }}
                         data-modal-target="popup-modal"
                         data-modal-toggle="popup-modal"

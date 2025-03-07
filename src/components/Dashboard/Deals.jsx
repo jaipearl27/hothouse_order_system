@@ -22,11 +22,10 @@ const Deals = () => {
     const { deals, collectionDeals } = useSelector(state => state.products)
     useEffect(() => {
         dispatch(fetchDeals(false))
+        dispatch(fetchDeals(true))
     }, [])
 
-    // console.log(deals, collectionDeals)
-
-
+//    console.log(deals, collectionDeals)
 
     return (
         <>

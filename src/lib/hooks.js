@@ -1,6 +1,4 @@
-import useSelector from "react-redux/useSelector";
-import useDispatch from "react-redux/useDispatch";
-import useStore from "react-redux/useStore"
+import {useSelector, useStore, useDispatch} from "react-redux";
 
 export const useAppDispatch = () => useDispatch.withTypes()
 export const useAppSelector = useSelector.withTypes()

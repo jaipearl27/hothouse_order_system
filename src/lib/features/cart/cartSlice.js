@@ -1,15 +1,27 @@
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 import { createSlice, current } from "@reduxjs/toolkit";
 
 const toppingsPriceTrackerSet = new Set();
 
-// console.log = () => {
 
-// }
+
+const calculateTotals = (state) => {
+
+    const itemsTotal = state.cartData?.reduce((acc, item) => acc + Number(item?.totalSum), 0)
+    const discountPercentage = state.orderType === "collection" ? 20 : 0
+    const discount = (Math.floor(((itemsTotal * 100) * (discountPercentage > 0 ? (discountPercentage / 100) : 0)))) / 100
+    const totalPrice = itemsTotal - (discount);
+
+    state.totals = { itemsTotal, discount, totalPrice };
+};
+
+
+
 
 const cartSlice = createSlice({
     name: "cart",
+
     initialState: {
         cartData: [],
         allToppings: {},
@@ -18,11 +30,16 @@ const cartSlice = createSlice({
         createYourOwnPizzaMAX_TOPPINGS: 0,
         CYOP_FREE_TOPPINGS: 0,
         isOrderCheckout: false,
+        orderType: "collection",
+        totals: {
+            itemsTotal: 0,
+            discount: 0,
+            totalPrice: 0
+        }
     },
 
     reducers: {
         updateSet: (state, action) => {
-
             if (toppingsPriceTrackerSet.size > 0) {
                 if (toppingsPriceTrackerSet.has(action.payload)) {
                     state.createYourOwnPizzaMAX_TOPPINGS = state.createYourOwnPizzaMAX_TOPPINGS - 1;
@@ -37,7 +54,6 @@ const cartSlice = createSlice({
                 state.createYourOwnPizzaMAX_TOPPINGS = state.createYourOwnPizzaMAX_TOPPINGS + 1;
                 toppingsPriceTrackerSet.add(action.payload);
             }
-
         },
         clearSet: (state) => {
             state.createYourOwnPizzaMAX_TOPPINGS = 0;
@@ -47,8 +63,6 @@ const cartSlice = createSlice({
             const isExist = state.cartData?.some((item) => {
                 return item?.id === action?.payload?.id;
             });
-            // console.log(isExist, "isExist");
-
             if (isExist) {
                 const temp = state.cartData.map((item) => {
                     if (item.id === action.payload.id) {
@@ -65,14 +79,15 @@ const cartSlice = createSlice({
                     return item;
                 });
                 state.cartData = temp;
-                toast.success("Added", {
-                    position: "top-center",
-                    duration: 300,
-                });
+                // toast.success("Added", {
+                //     position: "top-center",
+                //     duration: 300,
+                // });
             } else {
                 state.cartData = [...state.cartData, action.payload];
-                toast.success("Item Added Successfully", { position: "top-center" });
+                // toast.success("Item Added Successfully", { position: "top-center" });
             }
+            calculateTotals(state)
         },
         increaseQuantity: (state, action) => {
             const temp = state.cartData.map((item) => {
@@ -90,6 +105,7 @@ const cartSlice = createSlice({
                 return item;
             });
             console.log(temp, "temp");
+            calculateTotals(state)
             state.cartData = temp;
         },
         decreaseQuantity: (state, action) => {
@@ -110,7 +126,7 @@ const cartSlice = createSlice({
                 return item;
             });
             console.log(temp, "temp");
-
+            calculateTotals(state)
             state.cartData = temp;
         },
 
@@ -192,12 +208,15 @@ const cartSlice = createSlice({
             state.cartData = state.cartData.filter(
                 (item) => item.id !== action.payload.id
             );
+            calculateTotals(state)
         },
         orderCheckedout: (state, action) => {
             state.isOrderCheckout = action.payload;
         },
         emptyCart: (state, action) => {
             state.cartData = [];
+            calculateTotals(state)
+
         },
 
 
@@ -234,6 +253,11 @@ const cartSlice = createSlice({
                 ).toFixed(2),
             };
             state.allToppings = prices;
+        },
+
+        setOrderType: (state, action) => {
+            state.orderType = action.payload;
+            calculateTotals(state)
         }
     },
 });
@@ -251,7 +275,8 @@ export const {
     resetToppings,
     setToppingsCYOP,
     clearSet,
-    updateSet
+    updateSet,
+    setOrderType,
 } = cartSlice.actions;
 export default cartSlice.reducer;
 export const selectToppingsSet = () => toppingsPriceTrackerSet;
