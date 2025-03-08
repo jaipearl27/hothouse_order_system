@@ -15,7 +15,7 @@ const Pizza = () => {
         startTransition(() => {
             loading.current = true
             dispatch(fetchPizzas()).finally(() => loading.current = false)
-        })
+        }) 
     }, [dispatch]);
 
 
