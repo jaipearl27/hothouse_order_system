@@ -1,9 +1,7 @@
-"use client"
-
 import Image from 'next/image'
 import Link from 'next/link';
 import React, { useState } from 'react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/Select';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/lib/features/cart/cartSlice';
@@ -57,15 +55,7 @@ const PizzaCard = ({ data }) => {
             className="flex relative flex-col justify-between bg-white shadow-[0_0_2px#000] rounded-md max-w-[17rem]  2xl:max-w-xs w-full mb-10 hover:shadow-[0_0_4px#000000] "
             key={data?._id}
         >
-            <div className="">
-                {/* <Image
-                    src={data?.banner}
-                    alt={data?.pizzaName}
-                    width={500}
-                    height={500}
-                    className="h-20 w-full rounded-t-md object-cover"
-                /> */}
-            </div>
+
             <div className="flex absolute justify-end w-full p-1">
                 {" "}
                 <div

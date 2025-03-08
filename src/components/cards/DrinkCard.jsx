@@ -1,78 +1,50 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { addToCart } from "@/app/lib/features/cartSlice/cartSlice";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-
-import Image from "next/image";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/Select';
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/features/cart/cartSlice";
-
 
 export default function DrinksCard({ data }) {
 
     const dispatch = useDispatch();
 
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedPriceID, setselectedPriceID] = useState(null);
+
     useEffect(() => {
-        setSelectedOption({
-            label: `${data?.price[0]?.drinkType} £${data?.price[0]?.price}`,
-            name: data?.drink,
-            price: data?.price[0]?.price,
-            size: data?.price[0].drinkType,
-            value: data?.price[0]?._id,
-            img: data?.banner,
-        });
-
-        console.log({
-            label: `${data?.price[0]?.drinkType} £${data?.price[0]?.price}`,
-            name: data?.drink,
-            price: data?.price[0]?.price,
-            size: data?.price[0].drinkType,
-            value: data?.price[0]?._id,
-            img: data?.banner,
-        }, 'selectedOption')
-
-
+        setselectedPriceID(data?.price[0]?._id);
     }, []);
 
 
-    function handleAddDrinkToCart(data) {
-        if (data.id) {
-            dispatch(
-                addToCart({
-                    id: data?.id + selectedOption?.value,
-                    name: selectedOption?.name,
-                    img: selectedOption?.img,
-                    size: `${selectedOption?.size}-${selectedOption.price}`,
-                    quantity: 1,
-                    price: Number(selectedOption.price * 1).toFixed(2),
-                    totalSum: Number(selectedOption.price * 1).toFixed(2),
-                })
-            );
+    function handleAddDrinkToCart() {
 
-            console.log({
-                id: data?.id + selectedOption?.value,
-                name: selectedOption?.name,
-                img: selectedOption?.img,
-                size: `${selectedOption?.size}"-${selectedOption.price}`,
-                quantity: 1,
-                price: Number(selectedOption.price * 1).toFixed(2),
-                totalSum: Number(selectedOption.price * 1).toFixed(2),
-            });
-            console.log("selected ", selectedOption);
+        const selectedPriceData = data?.price.find(price => price._id === selectedPriceID)
+        const selectedDrink = {
+            label: selectedPriceData.drinkType,
+            value: selectedPriceData._id,
+            price: selectedPriceData.price,
+            img: data?.banner,
+            name: data?.drink,
+            size: selectedPriceData.drinkType,
         }
+
+        dispatch(
+            addToCart({
+              _id:data?.id,
+              id: data?.id + selectedDrink?.value,
+              name: selectedDrink?.name,
+              img: selectedDrink?.img,
+              size: `${selectedDrink?.size}-${selectedDrink.price}`,
+              quantity: 1,
+              price: Number(selectedDrink.price * 1).toFixed(2),
+              totalSum: Number(selectedDrink.price * 1).toFixed(2),
+            })
+          );
+
+
     }
 
     return (
 
         <div className="flex relative flex-col justify-between bg-white shadow-[0_0_2px#000] rounded-md max-w-[17rem]  2xl:max-w-xs w-full mb-10 hover:shadow-[0_0_4px#000000]" key={data?._id}>
-            {/* <Image
-                src={data.banner}
-                alt={data.drink}
-                width={300}
-                height={300}
-                className="rounded-t-md object-cover w-full h-44"
-            /> */}
 
             <h2 className="text-2xl xl:text-3xl text-center font-semibold mb-1">{data.drink}</h2>
             <div className="space-y-4 mt-2">
@@ -82,23 +54,14 @@ export default function DrinksCard({ data }) {
                     </div>
                 ) : (
 
-
                     <Select
                         onValueChange={(value) => {
-                            console.log(value);
-                            setSelectedData(value);
+                            setselectedPriceID(value);
                         }}
                         name="drinks"
                         id="drinks"
                         defaultValue={
-                            {
-                                label: `${data?.price[0]?.drinkType} £${data?.price[0]?.price}`,
-                                name: data?.drink,
-                                price: data?.price[0]?.price,
-                                size: data?.price[0].drinkType,
-                                value: data?.price[0]?._id,
-                                img: data?.banner,
-                            }
+                            data?.price[0]?._id
                         }
                     >
                         <SelectTrigger className="w-full">
@@ -109,14 +72,7 @@ export default function DrinksCard({ data }) {
                                 return (
                                     <SelectItem
                                         key={`drinkItem${idx}`}
-                                        value={{
-                                            label: `${drinkItem.drinkType} £${drinkItem.price}`,
-                                            name: data.drink,
-                                            price: drinkItem?.price,
-                                            size: drinkItem.drinkType,
-                                            value: drinkItem?._id,
-                                            img: data?.banner,
-                                        }}
+                                        value={drinkItem?._id}
                                         data-label={`${drinkItem.drinkType} £${drinkItem.price}`}>
                                         {`${drinkItem.drinkType} £${drinkItem.price}`}
                                     </SelectItem>
@@ -130,11 +86,9 @@ export default function DrinksCard({ data }) {
 
                 <div
                     className="bg-green-600 hover:bg-green-700 cursor-pointer"
-                // onClick={() =>
-                //     handleAddDrinkToCart({
-                //         id: data._id,
-                //     })
-                // }
+                    onClick={() =>
+                        handleAddDrinkToCart()
+                    }
                 >
                     <p className="text-center p-2 text-white">Add</p>
                 </div>

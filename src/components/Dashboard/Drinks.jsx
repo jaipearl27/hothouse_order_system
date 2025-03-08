@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useEffect } from 'react'
 import DrinksCard from '../cards/DrinkCard'
 import { fetchDrinks } from '@/lib/actions/products'

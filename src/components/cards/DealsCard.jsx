@@ -1,9 +1,8 @@
-"use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 // import Select from "react-select";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/Select';
 
 
 const DealsCards = ({ data, path }) => {

@@ -9,11 +9,10 @@ const toppingsPriceTrackerSet = new Set();
 const calculateTotals = (state) => {
 
     const itemsTotal = state.cartData?.reduce((acc, item) => acc + Number(item?.totalSum), 0)
-    const discountPercentage = state.orderType === "collection" ? 20 : 0
-    const discount = (Math.floor(((itemsTotal * 100) * (discountPercentage > 0 ? (discountPercentage / 100) : 0)))) / 100
-    const totalPrice = itemsTotal - (discount);
-
+    const discount = (Math.floor(((itemsTotal * 100) * (state.discountPercentage > 0 ? (state.discountPercentage / 100) : 0)))) / 100
+    const totalPrice = itemsTotal - (discount) + state.deliveryCharge;
     state.totals = { itemsTotal, discount, totalPrice };
+
 };
 
 
@@ -31,6 +30,8 @@ const cartSlice = createSlice({
         CYOP_FREE_TOPPINGS: 0,
         isOrderCheckout: false,
         orderType: "collection",
+        discountPercentage: 20,
+        deliveryCharge: 0,
         totals: {
             itemsTotal: 0,
             discount: 0,
@@ -216,9 +217,7 @@ const cartSlice = createSlice({
         emptyCart: (state, action) => {
             state.cartData = [];
             calculateTotals(state)
-
         },
-
 
         setToppingsCYOP: (state, action) => {
             const temp = {
@@ -257,7 +256,27 @@ const cartSlice = createSlice({
 
         setOrderType: (state, action) => {
             state.orderType = action.payload;
+
+            switch (action.payload) {
+                case "collection":
+                    state.discountPercentage = 20;
+                    state.deliveryCharge = 0;
+                    break;
+                case "delivery":
+                    state.discountPercentage = 0;
+                    state.deliveryCharge = 3.99;
+                    break;
+                case "takeaway":
+                    state.discountPercentage = 20;
+                    state.deliveryCharge = 0
+                    break;
+                default:
+                    state.discountPercentage = 0;
+                    state.deliveryCharge = 0
+            }
+
             calculateTotals(state)
+
         }
     },
 });

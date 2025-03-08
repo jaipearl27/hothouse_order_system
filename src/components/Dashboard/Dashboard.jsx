@@ -1,10 +1,12 @@
 "use client"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/Tabs"
 import Pizza from "./Pizza"
 import Sides from "./Sides"
 import Drinks from "./Drinks"
 import Deals from "./Deals"
+import Dips from "./Dips"
+import Desserts from "./Desserts"
 
 
 const Dashboard = () => {
@@ -39,7 +41,6 @@ const Dashboard = () => {
                                 <TabsTrigger value="drinks" className="w-full">DRINKS</TabsTrigger>
                                 <TabsTrigger value="desserts" className="w-full">DESSERTS</TabsTrigger>
                                 <TabsTrigger value="dips" className="w-full">DIPS</TabsTrigger>
-
                             </TabsList>
                             <TabsContent value="deals">
                                 <Deals />
@@ -53,8 +54,11 @@ const Dashboard = () => {
                             <TabsContent value="drinks">
                                 <Drinks />
                             </TabsContent>
-                            <TabsContent value="sides">
-                                <Sides />
+                            <TabsContent value="desserts">
+                                <Desserts />
+                            </TabsContent>
+                            <TabsContent value="dips">
+                                <Dips />
                             </TabsContent>
                         </Tabs>
 

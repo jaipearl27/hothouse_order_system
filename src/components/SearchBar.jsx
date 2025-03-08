@@ -1,7 +1,5 @@
 "use client"
 
-import Card from "./PizzaCard"
-
 const SearchBar = () => {
     return (
         <div className="w-full h-14 bg-emerald-600 rounded-xl">
