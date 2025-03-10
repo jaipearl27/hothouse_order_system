@@ -15,9 +15,8 @@ const Pizza = () => {
         startTransition(() => {
             loading.current = true
             dispatch(fetchPizzas()).finally(() => loading.current = false)
-        }) 
+        });
     }, [dispatch]);
-
 
     return (
         <>
@@ -25,9 +24,10 @@ const Pizza = () => {
                 <Loader />
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-2 p-2">
-                {pizzas && pizzas.map((item, idx) => (
-                    <PizzaCard key={`${item._id}pizza`} data={item} idx={idx} />
+                    {pizzas && pizzas.map((item, idx) => (
+                        <PizzaCard key={`${item._id}pizza`} data={item} idx={idx} />
                     ))}
+
                 </div>
             )}
         </>
