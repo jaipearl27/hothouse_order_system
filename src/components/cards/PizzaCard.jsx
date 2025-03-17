@@ -171,18 +171,11 @@ const PizzaCard = ({ data }) => {
                     </div>
                 </div>
 
-
-
-
-
-
-
+                {/* modal content below */}
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Customize Pizza</DialogTitle>
-                        <DialogDescription>
-                            Make changes to your profile here. Click save when you're done.
-                        </DialogDescription>
+                        <DialogTitle>Pizza Customization</DialogTitle>
+                   
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
