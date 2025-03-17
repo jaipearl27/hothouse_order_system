@@ -26,7 +26,7 @@ async function getData(id) {
     }
 }
 
-const DealsView = ({cardId, sizeId}) => {
+const DealsView = ({ cardId, sizeId }) => {
     // const searchParams = useSearchParams();
 
     const router = useRouter();
@@ -103,15 +103,10 @@ const DealsView = ({cardId, sizeId}) => {
         ];
 
 
-
         if (
             dealViewData &&
             submitData.every((item) => item !== null && item !== undefined) && (dealDataPizza.length === dealViewData.chooseItems.pizzas)
         ) {
-
-
-
-
 
             dispatch(
                 addToCart({
@@ -131,8 +126,6 @@ const DealsView = ({cardId, sizeId}) => {
                     collectionOnlyDeal: dealViewData?.collectionOnlyDeal,
                 }));
             router.push("/order/cart");
-
-
 
         } else {
             toast.error("Fill All Fields !!");
@@ -376,9 +369,6 @@ const DealsView = ({cardId, sizeId}) => {
                                 />
                             </div>
                         </div>
-
-
-
 
                         <div className="p-5 md:p-10 flex justify-center items-center">
                             <button
